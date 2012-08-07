@@ -1,0 +1,12 @@
++++++
+Title: STXT Extras
++++++
+
+= Contents ====================================================================
+
+; stxt.css -- A basic stylesheet for displaying documents in STXT's native XML
+              format.
+; stxt.dtd -- A DTD for STXT's XML format. This is informative, stxt.xsd is
+              normative.
+; stxt.vim -- Adds STXT syntax highlighting to the Vim text editor.
+; stxt.xsd -- An XML Schema for STXT's XML format. This is normative.

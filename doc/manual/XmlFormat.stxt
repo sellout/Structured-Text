@@ -1,0 +1,100 @@
++++++
+Title: STXT Manual: XML Format
++++++
+
+= XML Format =====
+
+Both [stxt.xsd | XML Schema] (normative) and [stxt.dtd | DTD] (informative)
+versions of the format are available for reference.
+
+The format uses [http://www.w3.org/TR/xlink/ | XLink] for links and images. With
+the xml-stylesheet processing-instruction, modern browsers like Mozilla can
+render this format directly. However, your intention is probably to use it as an
+intermediary format that will be transformed (probably via XSLT) into your
+preferred format.
+
+Every element in the schema is mapped to a structure in the STXT format. For
+example, the :*: delimiter is mapped to the :bold: element.
+
+=== :stxtDocument:
+
+This is the standard top-level element used for full block structure.
+
+==== :metadata:
+
+The metadata contains any number of simple data pairs that can be useful in
+indexing and storing the document, but are generally not used for display. It
+consists of a number of :header: elements, each with a unique :key: and the
+value as the content.
+
+::
+<header key="title">The Rise and Fall of the Roman Empire</header>
+::
+
+==== :body:
+
+This is where all the block elements are allowed.
+
+=== :stxtFragment:
+
+Very often applications have fields that use phrases or a few sentences, but
+don't allow multiple paragraphs or other structure. However, you often want to
+allow some limited mark-up for italics and such.
+
+This element has a content-model identical to para, but it is a top-level
+element so it can be used on its own, and it enforces there being no block-level
+structure.
+
+== Block elements =====
+
+=== :code:
+
+=== :para:
+
+=== :blockquote:
+
+=== :heading:
+
+; :level: -- indicates the relative level of the heading.
+
+=== :list:
+
+; :ordered: -- boolean indicating whether the list is ordered or unordered.
+
+==== :item:
+
+=== :deflist:
+
+==== :entry:
+
+===== :term:
+
+===== :definition:
+
+== Inline elements =====
+
+=== :bold:, :italic:, :monospace:, :subscript:, :superscript:
+
+These elements are recursively nestable and are available within any text block
+except for :code:.
+
+:bold: and :italic: are standard emphasis indicators. :monospace: is most
+commonly used to indicate keyboard input or output from a computer. :subscript:
+is useful for chemical formulas and :superscript: for footnotes.
+
+=== :link:
+
+:link: is very similar to the other inline elements, except that it has a
+required attribute.
+
+; :xlink:href: -- required to show the destination of the link.
+
+These links are isomorphic with standard HTML links.
+
+=== :image:
+
+:image: is an empty element with two attributes.
+
+; :xlink:href: -- required and shows the source of the image file.
+; :xlink:title: -- descriptive text that is used for non-graphical user
+                   agents.

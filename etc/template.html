@@ -1,0 +1,56 @@
+<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+				xmlns:stxt="http://valentsoftware.com/stxt"
+				xmlns="http://www.w3.org/1999/xhtml"
+				version="1.0">
+				
+	<xsl:template match="/">
+		<xsl:if test="$stylesheet">
+			<xsl:processing-instruction name="xml-stylesheet">href="<xsl:value-of select="$stylesheet"/>" type="text/css"</xsl:processing-instruction>
+		</xsl:if>
+		<html>
+			<head>
+				<xsl:choose><!-- FIXME: need to figure out how to keep empty <title> from collapsing -->
+					<xsl:when test="stxt:stxtDocument/stxt:metadata/stxt:header[@key='title']">
+						<title><xsl:value-of select="stxt:stxtDocument/stxt:metadata/stxt:header[@key='title']"/></title>
+					</xsl:when>
+					<xsl:otherwise>
+						<title>Untitled</title>
+					</xsl:otherwise>
+				</xsl:choose>
+				<xsl:if test="$stylesheet">
+					<xsl:choose>
+						<xsl:when test="$stylesheet_content">
+							<style type="text/css">
+								<xsl:value-of select="$stylesheet_content"/>
+							</style>
+						</xsl:when>
+						<xsl:otherwise>
+							<link rel="stylesheet" href="{$stylesheet}" type="text/css" />
+						</xsl:otherwise>
+					</xsl:choose>
+				</xsl:if>
+				<xsl:if test="stxt:stxtDocument/stxt:metadata/stxt:header[@key='date']">
+					<xsl:element name="meta">
+						<xsl:attribute name="http-equiv">Last-Modified</xsl:attribute>
+						<xsl:attribute name="content"><xsl:value-of select="stxt:stxtDocument/stxt:metadata/stxt:header[@key='date']"/></xsl:attribute>
+					</xsl:element>
+				</xsl:if>
+				<xsl:if test="stxt:stxtDocument/stxt:metadata/stxt:header[@key='author']">
+					<xsl:element name="meta">
+						<xsl:attribute name="name">Author</xsl:attribute>
+						<xsl:attribute name="content"><xsl:value-of select="stxt:stxtDocument/stxt:metadata/stxt:header[@key='author']"/></xsl:attribute>
+					</xsl:element>	
+				</xsl:if>
+				<xsl:if test="stxt:stxtDocument/stxt:metadata/stxt:header[@key='revision']">
+					<xsl:element name="meta">
+						<xsl:attribute name="name">revision</xsl:attribute>
+						<xsl:attribute name="content"><xsl:value-of select="stxt:stxtDocument/stxt:metadata/stxt:header[@key='revision']"/></xsl:attribute>
+					</xsl:element>	
+				</xsl:if>
+			</head>
+			<body>
+				<xsl:apply-templates select="stxt:stxtDocument/stxt:body"/>
+			</body>
+		</html>
+	</xsl:template>
+</xsl:stylesheet>

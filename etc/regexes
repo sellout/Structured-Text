@@ -1,0 +1,77 @@
+== blockquote
+recog: \s*>>\s+
+end: \n(\s*\n)+(?=(\s{<}\S)
+
+== lists
+recog: \s*#\s+
+end: \n(\s*\n)+(?=((\s{<}&&[^(\s{b}#)])\S)
+
+== deflists
+recog: \s*--\s+
+end: \n(\s*\n)+
+
+== para
+end \n(\s*\n)+
+
+== code
+recog: \s*::\s*\n
+end: \n\s*::\s*\n(\s*\n)+
+
+== heading
+recog: \s*=+\s+
+end: \s+=*\s*\n(\s*\n)+
+
+================ older stuff below ===============
+
+#== SIMPLE INLINE group 1 is the element, group 2 is the content
+(?<=(?:\p{Z}|\A))($START$([^\p{Z}$START$] # match space-START-notspace
+.*?
+[^\p{Z}$END$])$END$)(?=(?:\p{Z}|\Z))  # match notspace-START-space
+
+bold:
+START = \*
+END = \*
+
+italic:
+START = _
+END = _
+
+superscript:
+START = \^
+END = \^
+
+subscript:
+START = ~
+END = ~
+
+monospace:
+START = :
+END = :
+
+#== ATTRIBUTED
+START = $START$[^\|$END$]\|
+END = $END$
+
+link:
+START = \[
+END = \]
+
+image:
+START = \{
+END = \}
+
+
+[uri     |   foo | bar]
+
+#== IMG/LINK group 1 is the element, group 2 is the uri, group 3(2) is the alt/content
+(?<=(?:\p{Z}|\A))($START$([^\p{Z}$START$] # match space-START-notspace
+.*?)\p{Z}*\|\p{Z}*(.*?
+[^\p{Z}$END$])$END$)(?=(?:\p{Z}|\Z))  # match notspace-START-space
+
+image:
+START = {
+END = }
+
+link:
+START = [
+END = ]

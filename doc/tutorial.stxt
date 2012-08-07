@@ -1,0 +1,67 @@
+= How to use the STXT Processor =====
+
+All of the documentation for the processor is written in STXT. If you look in
+doc/stxt you will see plenty of examples of the STXT format.
+
+== What is STXT? =====
+
+STXT is designed to be simple to write, and simple to parse into many other
+formats. You can write an STXT document in any text editor, and use the engine
+to output anything from HTML to PDF.
+
+== Writing STXT files =====
+
+An STXT file is just a text file. To make paragraphs, you leave a blank line, if
+you want to make something *bold* you surround it with '*', for _italic_
+surround it with '_'. ^Superscript^ uses '^' and ~subscript~ uses '~'. Surround
+something with ':' to make it :monospace:.
+
+Here is the preceeding paragraph in STXT format:
+
+::
+An STXT file is just a text file. To make paragraphs, you leave a blank line, if
+you want to make something *bold* you surround it with '*', for _italic_
+surround it with '_'. ^Superscript^ uses '^' and ~subscript~ uses '~'. Surround
+something with ':' to make it :monospace:.
+::
+
+At this point, you can already write a passable file. However, there are plenty
+of other features. A heading is a paragraph that begins with one or more '='.
+The number of equal signs indicate its level.
+
+==== Level 4 Heading
+
+If you want to quote a paragraph from somewhere else, simply start it with '>>'.
+
+>> Four score and thirty-two baths ago our forefathers (a quartet) and
+foremothers ('nother quartet) set forth upon Pepperland in this yellow
+submarine.
+
+You can make a list from consecutive items starting with '*' for a bulleted list
+or '#' for a numbered list.
+
+* Item 1
+* Item 2
+* Item 3
+
+# do this
+# do this next
+# finally, do this
+
+== Using the engine =====
+
+The engine is this package is distributed as an executable Jar file. To use it,
+try :java -jar stxt.jar _filename_:. This simplest method should spit out an XML
+file containing a transformed version of your document. The format of the XML
+file is the intermediary format for STXT. From this file we can get to any
+other.
+
+However, this probably isn't the format you want your document in. Many formats
+are available on the commandline with the :-format: option. Valid formats
+include :html:, :latex:, :text:, and others. To make this more useful to you,
+try this command: :java -jar stxt.jar -format html _filename_:. You should now
+have an HTML version of your document.
+
+Other options include the ability to add CSS stylesheets to any HTML or XML
+output formats, to read in the STXT XML format for transformation, and dumping
+all of the generated files to another directory. 

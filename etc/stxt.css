@@ -1,0 +1,100 @@
+metadata {
+	display: none;
+}
+
+blockquote,
+code,
+deflist,
+	entry,
+		term,
+heading,
+list,
+para {
+	display: block;
+	margin: 1em;
+}
+
+definition {
+	display: list-item;
+}
+
+item {
+	display: list-item;
+}
+
+bold,
+image,
+italic,
+link,
+monospace,
+subscript,
+superscript {
+	display: inline;
+}
+
+/*-------------------------------------*/
+
+blockquote,
+code {
+	margin-left: 2em;
+	margin-right: 2em;
+}
+
+entry,
+term,
+definition {
+	margin: 0;
+}
+
+definition {
+	margin-left: 2em;
+}
+
+code,
+monospace {
+	font-family: monospace;
+}
+
+list {
+	margin-left: 2em;
+}
+
+list[ordered="true"] {
+	list-style-type: decimal;
+}
+
+bold { font-weight: bold; }
+italic { font-style: italic; }
+subscript { vertical-align: sub; }
+superscript { vertical-align: super; }
+
+link {
+	color: blue;
+	text-decoration: underline;
+}
+
+heading[level="1"] {
+	font-size: 200%;
+	font-weight: lighter;
+}
+
+heading[level="2"] {
+	font-variant: small-caps;
+	text-align: center;
+}
+
+heading[level="3"] {
+	text-align: center;
+}
+
+heading[level="4"] {
+	font-variant: small-caps;
+}
+
+heading[level="5"] {
+	font-variant: italic;
+}
+
+heading[level="6"] {
+	
+}

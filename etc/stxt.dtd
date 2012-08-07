@@ -1,0 +1,64 @@
+<!ENTITY % block "blockquote | code | deflist | heading | list | para">
+<!ENTITY % inline "#PCDATA | bold | image | italic | link | monospace | subscript | superscript">
+
+<!-- TOP-LEVEL ELEMENTS -->
+
+<!ELEMENT stxtDocument (metadata, body)>
+<!ATTLIST stxtDocument
+	xmlns:xlink CDATA #FIXED "http://www.w3.org/1999/xlink">
+<!ELEMENT stxtFragment (metadata, para)>
+<!ATTLIST stxtFragment
+	xmlns:xlink CDATA #FIXED "http://www.w3.org/1999/xlink">
+
+<!-- METADATA -->
+
+<!ELEMENT metadata (header)*>
+
+<!ELEMENT header (#PCDATA)>
+<!ATTLIST header
+    key ID #REQUIRED>
+
+<!-- BODY -->
+
+<!ELEMENT body (%block;)*>
+
+<!ELEMENT blockquote (%block;)*>
+<!ELEMENT code (#PCDATA)>
+<!ELEMENT deflist (entry)*>
+<!ELEMENT heading (%inline;)*>
+<!ATTLIST heading
+    id    ID    #IMPLIED
+	level CDATA #REQUIRED>
+<!ELEMENT list (item)*>
+<!ATTLIST list
+	ordered (true|false) #REQUIRED>
+<!ELEMENT para (%inline;)*>
+<!ELEMENT separator EMPTY>
+
+<!-- INLINE ELEMENTS -->
+
+<!ELEMENT bold (%inline;)*>
+<!ELEMENT image EMPTY>
+<!ATTLIST image
+	xlink:type    (simple)    #FIXED "simple"
+	xlink:href    CDATA       #REQUIRED
+	xlink:title   CDATA       #IMPLIED
+	xlink:show    (embed)     #FIXED "embed"
+	xlink:actuate (onLoad)    #FIXED "onLoad">
+<!ELEMENT italic (%inline;)*>
+<!ELEMENT link (%inline;)*>
+<!ATTLIST link
+	xlink:type    (simple)    #FIXED "simple"
+	xlink:href    CDATA       #REQUIRED
+	xlink:show    (replace)   #FIXED "replace"
+	xlink:actuate (onRequest) #FIXED "onRequest">
+<!ELEMENT monospace (%inline;)*>
+<!ELEMENT subscript (%inline;)*>
+<!ELEMENT superscript (%inline;)*>
+
+<!-- NESTED ELEMENTS -->
+
+<!ELEMENT item (%block;)*>
+<!ELEMENT entry (term, definition*)>
+<!ELEMENT term (%inline;)*>
+<!ELEMENT definition (%inline;)*>

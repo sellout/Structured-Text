@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jardesc>
+    <jar path="Projects/Valent Solutions/stxt/dist/stxt.jar"/>
+    <options overwrite="true" compress="true" exportErrors="true"
+        exportWarnings="true" saveDescription="true"
+        descriptionLocation="/stxt/etc/stxt-jar.jardesc"
+        useSourceFolders="false" buildIfNeeded="true"/>
+    <manifest manifestVersion="1.0" usesManifest="true"
+        reuseManifest="true" saveManifest="true"
+        generateManifest="false"
+        manifestLocation="/stxt/etc/MANIFEST.MF" mainClassHandleIdentifier="=stxt/src&lt;com.valentsolutions.stxt{StxtCmdLineProcessor.java[StxtCmdLineProcessor">
+        <sealing sealJar="false">
+            <packagesToSeal/>
+            <packagesToUnSeal/>
+        </sealing>
+    </manifest>
+    <selectedElements exportClassFiles="true" exportJavaFiles="false">
+        <file path="/stxt/etc/stxt.xsd"/>
+        <file path="/stxt/etc/stxt2txt.xsl"/>
+        <file path="/stxt/etc/stxt.dtd"/>
+        <file path="/stxt/etc/stxt2fo.xsl"/>
+        <file path="/stxt/etc/stxt2xml.xsl"/>
+        <file path="/stxt/etc/stxt2latex.xsl"/>
+        <file path="/stxt/etc/stxt2docbook.xsl"/>
+        <file path="/stxt/etc/stxt2stxt.xsl"/>
+        <javaElement handleIdentifier="=stxt/src"/>
+        <file path="/stxt/etc/stxt2html.xsl"/>
+        <file path="/stxt/etc/template.html"/>
+        <folder path="/stxt/lib"/>
+    </selectedElements>
+</jardesc>

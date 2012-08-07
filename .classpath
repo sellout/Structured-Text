@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+    <classpathentry kind="src" path="src"/>
+    <classpathentry kind="src" path="tests"/>
+    <classpathentry kind="var" path="JRE_LIB" sourcepath="JRE_SRC"/>
+    <classpathentry kind="var" path="JUNIT_LIB/junit.jar"/>
+    <classpathentry kind="lib" path="lib/jargs.jar"/>
+    <classpathentry kind="var" path="XALAN_LIB/xalan.jar"/>
+    <classpathentry kind="var" path="ANT_LIB/ant.jar"/>
+    <classpathentry kind="var" path="XALAN_LIB/xercesImpl.jar"/>
+    <classpathentry kind="var" path="XALAN_LIB/xml-apis.jar"/>
+    <classpathentry kind="output" path="build"/>
+</classpath>

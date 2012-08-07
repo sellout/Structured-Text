@@ -1,0 +1,141 @@
+package com.valentsolutions.stxt.parser;
+
+import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import com.valentsolutions.stxt.StxtException;
+import com.valentsolutions.stxt.dom.Bold;
+import com.valentsolutions.stxt.dom.InlineElement;
+import com.valentsolutions.stxt.dom.Italic;
+import com.valentsolutions.stxt.dom.Monospace;
+import com.valentsolutions.stxt.dom.Subscript;
+import com.valentsolutions.stxt.dom.Superscript;
+import com.valentsolutions.stxt.dom.Text;
+
+/**
+ * This class scans for inline markup, such as bold, italic, etc., extracts
+ * them from the text and returns them to the caller. Unlike the parser 
+ * classes, it does not create the container to hold these elements.
+ */
+public class InlineScanner
+{
+    /**
+     * Scans the buffer and extracts the inline markup found.
+     * 
+     * @pre buffer != null
+     * @post return != null
+     */
+    public InlineElement[] scan(String buffer) 
+        throws StxtException
+    {
+        ArrayList elements = new ArrayList();
+        
+        Pattern p = Pattern.compile(
+            "(" +
+            "(?<=\\s|\\A)(\\*)(?=\\S)|" +  // bold
+            "(?<=\\s|\\A)(\\_)(?=\\S)|" +  // italic
+            "(?<=\\s|\\A)(\\^)(?=\\S)|" +  // super
+            "(\\~)(?=\\S)|" +              // sub
+            "(?<=\\s|\\A)(\\:)(?=\\S)|" +  // monospace
+            "(?<=\\s|\\A)(\\[)(?=\\S)|" +  // link
+            "(?<=\\s|\\A)(http://)(?=\\w)|" +  // bare link
+            "(?<=\\s|\\A)(mailto:)(?=\\w)|" +  // bare link
+            "(?<=\\s|\\A)(\\{)(?=\\S)" +   // image
+            ")",
+            Pattern.DOTALL);
+        Matcher elemStart = p.matcher(buffer);
+        
+        // scan for the start of elements
+        int pos = 0;
+        while (elemStart.find(pos))
+        {
+            // process any text that came before the element
+            String text = buffer.substring(pos, elemStart.start());
+            elements.add(new Text(text));
+//            System.out.println("T: '" + text + "'");
+            
+            pos = elemStart.end();
+            
+            // choose an end pattern to look for
+            String endPattern;
+            InlineElementParser parser;
+            if (elemStart.group(2) != null)
+            {
+                endPattern = "(?<=\\S)(\\*)(?=\\s|\\p{P}|\\Z)"; // bold
+                parser = new InlineElementParser(Bold.class);
+            }
+            else if (elemStart.group(3) != null)
+            {
+                endPattern = "(?<=\\S)(\\_)(?=\\s|\\p{P}|\\Z)"; // italic
+                parser = new InlineElementParser(Italic.class);
+            }
+            else if (elemStart.group(4) != null)
+            {
+                endPattern = "(?<=\\S)(\\^)";                   // super
+                parser = new InlineElementParser(Superscript.class);
+            }
+            else if (elemStart.group(5) != null)
+            {
+                endPattern = "(?<=\\S)(\\~)";                   // sub
+                parser = new InlineElementParser(Subscript.class);
+            }
+            else if (elemStart.group(6) != null)
+            {
+                endPattern = "(?<=\\S)(\\:)(?=\\s|\\p{P}|\\Z)"; // monospace
+                parser = new InlineElementParser(Monospace.class);
+            }
+            else if (elemStart.group(7) != null)
+            {
+                endPattern = "(\\])";                           // link
+                parser = new LinkParser();
+            }
+            else if (elemStart.group(8) != null)
+            {
+                // do something
+            }
+            else if (elemStart.group(9) != null)
+            {
+                // do something
+            }
+            else if (elemStart.group(10) != null)
+            {
+                endPattern = "(\\})";                           // image
+                parser = new ImageParser();
+            }
+            else
+            {
+                throw new StxtException("Internal error, unrecognized match: '" + 
+                    elemStart.group() + "'");    
+            }
+        
+            // find the end of the current element            
+            Pattern endp = Pattern.compile(endPattern, Pattern.DOTALL);
+            Matcher elemEnd = endp.matcher(buffer);
+            
+            if (! elemEnd.find(pos))
+            {
+				// put the delimiter into the output literally.
+                elements.add(new Text(elemStart.group()));
+				pos = elemStart.end();
+            }
+            else
+            {
+				// process the element found.
+				InlineElement child = parser.parse(buffer.substring(elemStart.end(), elemEnd.start()));
+				elements.add(child);
+            
+				pos = elemEnd.end();
+            }            
+        }
+     
+        // process any trailing text after the last element   
+        if (pos != buffer.length())
+        {
+            elements.add(new Text(buffer.substring(pos)));
+//            System.out.println("T: '" + buffer.substring(pos) + "'");
+        }
+                                                                   
+        return (InlineElement[]) elements.toArray(new InlineElement[0]);   
+    }
+}

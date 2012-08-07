@@ -1,0 +1,202 @@
+<?xml version="1.0"?>
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:xlink="http://www.w3.org/1999/xlink"
+           targetNamespace="http://valentsoftware.com/stxt"
+           xmlns="http://valentsolutions.com/stxt">
+           
+  <xs:annotation>
+    <xs:documentation xml:lang="en">
+      Structured Text schema for STXT engine.
+      Copyright 2003 Valent Solutions, Inc. All rights reserved.
+    </xs:documentation>
+  </xs:annotation>
+
+  <!-- Groups -->
+  <xs:group name="block">
+    <xs:choice>
+      <xs:element ref="blockquote" />
+      <xs:element ref="code" />
+      <xs:element ref="deflist" />
+      <xs:element ref="heading" />
+      <xs:element ref="list" />
+      <xs:element ref="para" />
+      <xs:element ref="separator" />
+    </xs:choice>
+  </xs:group>
+  <xs:group name="inline">
+    <xs:choice>
+      <xs:element ref="bold" />
+      <xs:element ref="image" />
+      <xs:element ref="italic" />
+      <xs:element ref="link" />
+      <xs:element ref="monospace" />
+      <xs:element ref="subscript" />
+      <xs:element ref="superscript" />
+    </xs:choice>
+  </xs:group>
+
+  <xs:complexType name="bodyType">
+    <xs:sequence minOccurs="0" maxOccurs="unbounded">
+      <xs:group ref="block" />
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="blockType">
+    <xs:complexContent>
+      <xs:extension base="bodyType">
+        <xs:attribute name="class" type="xs:string"/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="inlineMixed" mixed="true">
+    <xs:sequence minOccurs="0" maxOccurs="unbounded">
+      <xs:group ref="inline" />
+    </xs:sequence>
+    <xs:attribute name="class" type="xs:string"/>
+  </xs:complexType>
+
+  <!-- Top-Level Elements -->
+  <xs:element name="stxtDocument">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="metadata"/>
+        <xs:element ref="body"/>
+      </xs:sequence>
+      <!--<xs:attribute ref="xmlns:xlink" fixed="http://www.w3.org/1999/xlink"/>-->
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="stxtFragment">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="metadata"/>
+        <xs:element ref="para"/>
+      </xs:sequence>
+      <!--<xs:attribute ref="xmlns:xlink" fixed="http://www.w3.org/1999/xlink"/>-->
+    </xs:complexType>
+  </xs:element>
+
+  <!-- Metadata -->
+  <xs:element name="metadata">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="header" minOccurs="0" maxOccurs="unbounded"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="header">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="xs:string">
+          <xs:attribute name="key" type="xs:positiveInteger" use="required"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+ 
+  <!-- Body -->
+  <xs:element name="body" type="bodyType"/>
+
+  <!-- Blocks -->
+  <xs:element name="blockquote" type="blockType"/>
+
+  <xs:element name="code">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="xs:string">
+          <xs:attribute name="class" type="xs:string"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="deflist">
+    <xs:complexType>
+      <xs:sequence minOccurs="0" maxOccurs="unbounded">
+        <xs:element ref="entry"/>
+      </xs:sequence>
+      <xs:attribute name="class" type="xs:string"/>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="heading">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="inlineMixed">
+          <xs:attribute name="id" type="ID"/>
+          <xs:attribute name="level" type="xs:positiveInteger" use="required"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="list">
+    <xs:complexType>
+      <xs:sequence minOccurs="0" maxOccurs="unbounded">
+        <xs:element ref="item"/>
+      </xs:sequence>
+      <xs:attribute name="class" type="xs:string"/>
+      <xs:attribute name="ordered" type="xs:boolean" use="required"/>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="para" type="inlineMixed"/>
+  
+  <xs:element name="separator">
+    <xs:complexType>
+      <xs:attribute name="class" type="xs:string"/>
+    </xs:complexType>
+  </xs:element>
+
+  <!-- Inline -->
+  <xs:element name="bold" type="inlineMixed"/>
+
+  <xs:element name="image">
+    <xs:complexType>
+      <xs:attribute name="class" type="xs:string"/>
+      <xs:attribute ref="xlink:type" fixed="simple" />
+      <xs:attribute ref="xlink:href" use="required" />
+      <xs:attribute ref="xlink:title" />
+      <xs:attribute ref="xlink:show" fixed="embed" />
+      <xs:attribute ref="xlink:actuate" fixed="onLoad" />
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="italic" type="inlineMixed"/>
+
+  <xs:element name="link">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="inlineMixed">
+          <xs:attribute ref="xlink:type" fixed="simple" />
+          <xs:attribute ref="xlink:href" use="required" />
+          <xs:attribute ref="xlink:show" fixed="replace" />
+          <xs:attribute ref="xlink:actuate" fixed="onRequest" />
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="monospace" type="inlineMixed"/>
+  <xs:element name="subscript" type="inlineMixed"/>
+  <xs:element name="superscript" type="inlineMixed"/>
+
+  <!-- Nested -->
+  <xs:element name="item" type="blockType"/>
+
+  <xs:element name="entry">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="term" />
+        <xs:element minOccurs="0" maxOccurs="unbounded" ref="definition" />
+      </xs:sequence>
+      <xs:attribute name="class" type="xs:string"/>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="term" type="inlineMixed"/>
+  <xs:element name="definition" type="inlineMixed"/>
+</xs:schema>

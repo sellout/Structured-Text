@@ -1,0 +1,1 @@
+class BlockMarkup (InlineContainer, Block):

@@ -1,0 +1,165 @@
+<html>
+<head>
+<title>StxtFormat.stxt</title>
+<meta name="Generator" content="Vim/6.2">
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+</head>
+<body bgcolor="#ffffed" text="#000000">
+<pre>
+<font color="#0000d4">+++++</font>
+<font color="#0000d4">Title: STXT Manual: STXT Format</font>
+<font color="#0000d4">+++++</font>
+
+<font color="#2e8b57"><b>= STXT Format =================================================================</b></font>
+
+STXT is designed to be extremely human-readable. Many of the formatting symbols
+are the same ones people have been using in text editors and chatrooms for
+decades.
+
+<font color="#2e8b57"><b>== Skipping Symbols ===================</b></font>
+
+While I would normally put this off until we have covered the basic symbols, it
+is necessary for people who are reading this in the stxt version understand
+this immediately.
+
+When you precede a formatting symbol with an exclamation point (!) it will not
+be processed, but rather displayed literally (after removing the exclamation
+point). So<font color="#008080"> :</font><span style="background-color: #dd0806"><font color="#ffffff">!!!*</font></span><font color="#008080">boo*:</font> will be displayed as<font color="#008080"> :</font><span style="background-color: #dd0806"><font color="#ffffff">!*</font></span><font color="#008080">boo*:</font>. This also works for not
+processing the exclamation point, making<font color="#008080"> :</font><span style="background-color: #dd0806"><font color="#ffffff">!!!!!*</font></span><font color="#008080">boo*:</font> display as<font color="#008080"> :</font><span style="background-color: #dd0806"><font color="#ffffff">!!</font></span><font color="#008080">*boo*:</font>.
+
+Note: If you are reading this in stxt form, you'll notice that there are more
+exclamation points than you were probably expecting. This is because, as per
+the rule just stated, we have had to double them up to make them display
+correctly for people reading a processed version.
+
+<font color="#2e8b57"><b>== Markup =============================</b></font>
+
+When writing text, there are a number of ways to display words or phrases. In
+STXT, putting the correct symbol on either side of some text will change its
+display.
+
+<font color="#6a5acd">; </font>*<font color="#6a5acd"> -- </font><span style="background-color: #dd0806"><font color="#ffffff">!*</font></span>bold*<b> *bold*</b>
+<font color="#6a5acd">; </font>_<font color="#6a5acd"> -- </font><span style="background-color: #dd0806"><font color="#ffffff">!_</font></span>italic_<i> _italic_</i>
+<font color="#6a5acd">; </font>:<font color="#6a5acd"> -- </font>!:monospace:<font color="#008080"> :monospace:</font>
+<font color="#6a5acd">; </font>^<font color="#6a5acd"> -- </font>!<font color="#008080">^super^</font>script <font color="#008080">^super^</font>script
+<font color="#6a5acd">; </font>~<font color="#6a5acd"> -- </font><span style="background-color: #dd0806"><font color="#ffffff">!~</font></span>sub<font color="#008080">~script ~sub~</font>script
+
+<font color="#2e8b57"><b>=== Bold ===</b></font>
+
+To make some text<b> *bold*</b>, you put an asterisk (*) on either side of it. This is
+one of the most obvious markup symbols, and you've probably seen it in many
+places.
+
+<font color="#2e8b57"><b>=== Italic ===</b></font>
+
+_Italic_ uses another fairly universal symbol, the underscore (_). It works
+just like the bold. Some people claim that the underscore should be used for
+underlines, but we maintain that underlines are just bad style. The underline
+was introduced along with the typewriter. There was no way to type italics, and
+so putting underscores below characters indicated that they were to be thought
+of as italicized. While useful in that niche, underlining should die with the
+typewriter.
+
+<font color="#2e8b57"><b>=== Monospace ===</b></font>
+
+Often, you want to include text as displayed from the output of a command, or
+to be typed on a keyboard, etc. This is usually displayed in a<font color="#008080"> :monospace:</font> font.
+To make something monospace, put a colon (:) on either side of it.
+
+<font color="#2e8b57"><b>=== Superscript ===</b></font>
+
+It's not to uncommon to need something to be <font color="#008080">^superscript^</font>. Footnote indicators,
+exponents, etc. It's simple to do, just wrap
+
+<font color="#2e8b57"><b>=== Links and Images ===</b></font>
+
+Links that just appear inline are discovered, with the text being the URL. You
+can also indicate links with square brackets:
+
+<font color="#008080">::</font>
+<font color="#008080">[<A HREF="http://valentsolutions.com/]">http://valentsolutions.com/]</A></font>
+<font color="#008080">::</font>
+
+You can also add optional text after a pipe (|):
+
+<font color="#008080">::</font>
+<font color="#008080">[<A HREF="http://valentsolutions.com/">http://valentsolutions.com/</A> | Valent Solutions Inc.]</font>
+<font color="#008080">::</font>
+
+Images are pretty much the same, except they use curly braces (!<font color="#804040"><b>{foo.gif}</b></font>) with
+optional text that will be used in formats that don't support images
+(!<font color="#804040"><b>{foo.gif | foo}</b></font>).
+
+<font color="#2e8b57"><b>== Paragraphs and Blocks ==============</b></font>
+
+Now that we've gone over the basic markup, lets look at the parts that give
+structure to the overall document. Things like headings, paragraphs, and lists.
+
+<font color="#2e8b57"><b>=== Code ===</b></font>
+
+Code blocks are pretty much a larger version of monospace. Just like you
+indicate monospace with a colon, you indicate code with a double-colon. Inside
+a code block, no processing (with the exception of being able to escape code
+block delimiters) is done. All lines are passed to the output as-is.
+
+Also, since code blocks may contain blank lines, there is another double-colon
+at the end. This differs from other blocks, but makes sense here.
+
+<font color="#008080">::</font>
+<font color="#008080">!::</font>
+<font color="#008080">This is a code block.</font>
+<font color="#008080">This will be on a separate line.</font>
+
+<font color="#008080">This is *not bold* and this is _not italic_</font>
+
+<font color="#008080">* this</font>
+<font color="#008080">* is</font>
+<font color="#008080">* not</font>
+<font color="#008080">* a</font>
+<font color="#008080">* list</font>
+<font color="#008080">!::</font>
+<font color="#008080">::</font>
+
+<font color="#2e8b57"><b>=== Lists ===</b></font>
+
+<font color="#2e8b57"><b>==== Why don't we allow numbers to indicate an ordered list?</b></font>
+
+Many wikis use numbers to indicate an ordered list, because it shows the
+ordering in the structured text as well. What happens when you insert a row
+near the beginning of a long ordered list? You walk through fixing all the
+other numbers, just as if the file was the final format you'd be looking at. Of
+course, the numbers don't have to be in the right order, so you don't<i> _have_</i> to
+walk through fixing them all. But, if you're not going to, then why are you
+using numbers there at all?
+
+<font color="#2e8b57"><b>=== Tables ===</b></font>
+
+Unfortunately, tables are not yet supported. They are planned, though.
+
+<font color="#2e8b57"><b>== Metadata ===========================</b></font>
+
+At this point, you've gotten enough to build an entire document. The only piece
+that's remaining is information that describes your document, rather than being
+displayed in it.
+
+The structure of our metadata is simple. It begins and ends with<font color="#008080"> :+++++:</font>.
+Inside that block, there are a series of key-value pairs, separated with a
+colon. It looks something like this:
+
+<font color="#008080">::</font>
+<font color="#008080">+++++</font>
+<font color="#008080">Title: The Story of Jack and Jill</font>
+<font color="#008080">Author: Greg Pfeil &lt;greg@valentsolutions.com&gt;</font>
+<font color="#008080">Date: 2003-04-05</font>
+<font color="#008080">Description: Jack and Jill go up a hill to fetch a pail of water.</font>
+<font color="#008080">   Jack falls and injures himself, and Jill throws herself after him.</font>
+<font color="#008080">+++++</font>
+<font color="#008080">::</font>
+
+The actual keys and values are nothing special, they can be whatever you like.
+Note how the description is broken onto multiple lines. A value can be as many
+lines long as you like, provided the subsequent lines have whitespace in front
+of them.
+</pre>
+</body>
+</html>

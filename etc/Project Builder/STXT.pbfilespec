@@ -1,0 +1,18 @@
+/**
+
+STXT file specs.
+
+This file belongs in either
+~/Developer/ProjectBuilder Extras/Specifications/
+/Developer/ProjectBuilder Extras/Specifications/
+
+*/
+(
+{
+  Identifier = text.stxt;
+  BasedOn = text;
+  Extensions = (stxt);
+  MIMETypes = ("text/x-structured");
+  ComputerLanguage = stxt;
+},
+)

@@ -1,0 +1,93 @@
+<project name="stxt" default="schema" basedir=".">
+	<description>Structured Text engine</description>
+
+	<property name="build.sysclasspath" value="first" />
+
+	<property name="src.dir" location="src" />
+	<property name="etc.dir" location="etc" />
+	<property name="lib.dir" location="lib" />
+	<property name="doc.dir" location="doc"/>
+
+	<property name="build.dest" location="build" />
+	<property name="doc.dest" location="${build.dest}/doc"/>
+	<property name="api.dest" location="${doc.dest}/api"/>
+
+	<property name="doc.format" value="html"/>
+
+	<path id="project.classpath">
+		<pathelement location="${build.dest}"/>
+	</path>
+
+<!--	<taskdef name="dtd2xs" classpath="../Ant Utils/build" classname="com.valentsolutions.util.ant.Dtd2XsdTask"/>-->
+
+	<target name="init">
+		<tstamp />
+	</target>
+
+	<target name="schema">
+		<!-- generate schema from DTD -->
+		<!-- schema must still be hand-edited after, this is merely for convenience -->
+<!--		<dtd2xs dtd="${etc.dir}/stxt.dtd" schema="${etc.dir}/stxtgen.xsd"/>-->
+	</target>
+
+	<target name="generate">
+		<icontract srcdir="${src.dir}" instrumentdir="${build.dest}/instrument" repositorydir="${build.dest}/repository"
+		    verbosity="error*,warning*,note*,info*,progress*,debug*">
+			<classpath>
+				<pathelement path="${build.dest}"/>
+				<pathelement path="${lib.dir}/jargs.jar"/>
+				<pathelement path="repository"/>
+				<pathelement path="F:/Java/iContract-jdk1_2.jar"/>
+				<pathelement path="E:\j2sdk1.4.1_01\lib\tools.jar"/>
+				<pathelement path="E:\eclipse\plugins\org.apache.ant_1.4.1\ant.jar"/>
+			</classpath>
+		</icontract>
+		<delete>
+			<fileset dir="${src.dir}">
+				<include name="**/*.class"/>
+			</fileset>
+		</delete>
+	</target>
+	
+	<target name="documentation" description="Generate Documentation">
+		<taskdef name="stxt" classpathref="project.classpath"
+		         classname="com.valentsolutions.stxt.StxtProcessorTask"/>
+
+		<stxt dest="${doc.dest}" format="${doc.format}">
+			<fileset dir=".">
+				<include name="**/README.stxt"/>
+			</fileset>
+			<fileset dir="${doc.dir}"/>
+		</stxt>
+
+		<mkdir dir="${api.dest}"/>
+		<javadoc packagenames="com.valentsolutions.*" sourcepath="${src.dir}" destdir="${api.dest}">
+   			<!-- iContract's Doclet currently throws an exception with Java 1.4. -->
+      		<!--<doclet name="iContract.doclet.Standard" path="/usr/local/java/iDoclet.jar">
+         		<param name="-author"/>
+         		<param name="-use"/>
+      		</doclet>-->
+    		<classpath>
+    			<pathelement path="${lib.dir}/jargs.jar"/>
+    		</classpath>
+    	</javadoc>
+   </target>
+   
+   <target name="dist" description="build distribution">
+      <!-- So, first, we need a jar built, which will be done from the jardesc -->
+      <copy todir="${dist.dir}/extras">
+         <fileset dir="${etc.dir}">
+            <include name="stxt.css"/>
+            <include name="stxt.dtd"/>
+            <include name="stxt.vim"/>
+            <include name="stxt.xsd"/>
+         </fileset>
+      </copy>
+
+      <stxt dest="${dist.dir}/extras" format="text">
+         <fileset dir="${etc.dir}">
+	        <include name="README.stxt"/>
+         </fileset>
+      </stxt>
+   </target>
+</project>

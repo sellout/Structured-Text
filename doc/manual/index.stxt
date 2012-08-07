@@ -1,0 +1,35 @@
+= Structured Text Manual ======================================================
+
+If you have ever used a Wiki, you're probably familiar with some form of
+structured text. It's a simple markup style that is extremely human-readable,
+computer-parsable, and simple to use. These text formats are much easier to
+write (and write right) than HTML or BBCode.
+
+While using a few different wikis, we found two things:
+
+# the formatting codes (like :''': for bold) seemed quite random;
+# it was difficult to use outside of a wiki.
+
+We worked on a stand-alone structured text engine that we could embed into a
+wiki, as well as use in many other places - like writing docs, online
+message-boards, and anywhere else that might require multiple output formats or
+could have many people (who may or may not be technical) editing text.
+
+You are looking at the manual for that structured text engine.
+
+== Users ==============================
+
+=== Basic ===
+
+# [StxtFormat.html | STXT Format]
+# [UsingTheProcessor.html | Using the Processor]
+# [WritingTemplates.html | Writing Templates]
+
+=== Advanced ===
+
+# [XmlFormat.html | XML Format]
+# [WritingXsltTransformations.html | Writing XSLT Transformations]
+
+== Developers =========================
+
+# [UsingTheApi.html | Using the API]

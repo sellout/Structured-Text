@@ -1,0 +1,16 @@
++++++
+Title: STXT
++++++
+
+We use STXT to write all of the docs for all of our projects. It allows us to
+write docs that are readable in their source format as well as be quickly
+generated for the Web and PDFs for print versions.
+
+As a result, it’s grown to fit our needs, and we hope yours as well. You can
+look inside any of our projects to find many uses of STXT, as well as examples
+of the ant task.
+
+* [api | API]
+* [FAQ.html | FAQ]
+* [manual | Manual]
+* [README.html | README]

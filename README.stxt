@@ -1,0 +1,43 @@
++++++
+Title: STXT Readme
+Author: Valent Solutions Inc.
+Revision: $Revision: 1.8 $
++++++
+
+= STXT Readme ========================
+
+This is the top level for the Structured Text (stxt) project. This project
+strives to create a flexible text format that can be easily processed into a
+large number of other formats.
+
+Currently available to us are formats such as LaTeX, RTF, and HTML.
+
+This README is formatted as structured text, to illustrate its readability, but
+also to allow this documentation to be available in a number of formats.
+
+== Dependencies ======================
+
+We use [http://eclipse.org/ | Eclipse] as our development environment.  To
+build this out of the box with Eclipse, you will need to set the classpath
+variables XERCES_LIB and and XALAN_LIB to the location of Xerces and Xalan
+respectively.
+
+=== Running ===
+
+* [http://java.sun.com/j2se/1.4/ | Java 2 v 1.4]
+* An XSLT implementation, like [http://xml.apache.org/xalan-j/ | Xalan]
+* A DOM Level 2 implementation, like
+  [http://xml.apache.org/xerces2-j/ | Xerces] (also included in Xalan)
+
+=== Building ===
+
+* [http://ant.apache.org/ | Ant] or [http://eclipse.org/ | Eclipse]
+
+=== Documentation ===
+
+* [http://icplus.sourceforge.net/iDoclet.html | iDoclet]
+
+=== Testing ===
+
+* [http://www.reliable-systems.com/tools/iContract/iContract.htm | iContract]
+* [http://junit.org/ | JUnit]

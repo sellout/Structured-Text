@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet href="stxt.css" type="text/css"?>
+
+<stxtDocument xmlns="http://valentsoftware.com/stxt"
+              xmlns:xlink="http://www.w3.org/1999/xlink"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="http://valentsoftware.com/stxt stxt.xsd">
+	<body>
+		<heading level="1">Sample doc</heading>	
+
+		<para>This is a paragraph with <bold>bold</bold>,
+		<italic>italic</italic>, <monospace>monospace</monospace>,
+		<subscript>subscript</subscript>, and
+		<superscript>superscript</superscript>.</para>
+		
+		<heading level="2">Sample doc</heading>	
+
+		<para>Here's another paragraph, just for stuff. And a
+		<link xlink:href="foo">link</link>.</para>
+		
+		<heading level="3">Sample doc</heading>	
+
+		<list ordered="false">
+			<item>foo</item>
+			<item>bar</item>
+		</list>
+		
+		<heading level="4">Sample doc</heading>	
+
+		<list ordered="true">
+			<item>foo</item>
+			<item>bar</item>
+		</list>
+		
+		<heading level="5">Sample doc</heading>	
+
+		<deflist>
+			<entry>
+				<term>foo</term>
+				<definition>something something</definition>
+				<definition>something something</definition>
+			</entry>
+			<entry>
+				<term>foo</term>
+				<definition>something something</definition>
+			</entry>
+		</deflist>
+	</body>
+</stxtDocument>

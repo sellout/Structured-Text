@@ -1,0 +1,18 @@
++++++
+Title: STXT Manual: Using the Processor
++++++
+
+= Using the Processor =====
+
+;       :-format _string_: -- The output format of the processed documents.
+                              These include :text:, :html:, :latex:, :rtf:, and
+                              others.
+;         :-dest _string_: -- The directory to write all of the generated files
+                              to. The directory and any intervening directories
+                              will be created.
+;     :-template _string_: -- The template file to write the output into.
+;                   :-xml: -- The input files are in the STXT XML format.
+;      :-stylesheet _URL_: -- A CSS stylesheet to be included in any XML output
+                              format.
+; :-embed-style _boolean_: -- Whether to embed the stylesheet in the HTML
+                              output.

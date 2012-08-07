@@ -1,0 +1,35 @@
+/**
+   Python language specification.
+   
+   v0.1 by Bill Bumgarner, bbum@codefab.com, 12/16/2002 
+   		downloaded from: PyObjC: http://sourceforge.net/project/showfiles.php?group_id=14534
+   v0.2 by u.fiedler@web.de, 2.5.2003 (dmy)
+   		added: AltKeywords, CommentsCanBeNested, SingleLineComment
+*/
+(
+ // Python script
+{
+  Identifier = stxt;
+  Name = "STXT File";
+  Description = "Structured Text File";
+  SupportsIndentation = NO;
+  SyntaxColoring = {
+    IdentifierStartChars = "_";
+    CommentsCanBeNested = NO;
+    SingleLineComment = ("=");
+    String = (
+	      ( ":", ":"),
+	      ( "^", "^"),
+	      ( "*", "*" ),
+	      ( "_", "_" ),
+	      ( "~", "~" ),
+	      ( "[", "]" ),
+	      ( "{", "}" )
+	      );
+    EscapeCharacter = "!";
+    MultiLineComment = (("+++++","+++++"), ("::", "::"));
+ };
+}
+)
+
+
